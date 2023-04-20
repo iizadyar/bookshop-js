@@ -3,7 +3,7 @@ import { connect } from './db'
 export const createBook = async (title: string, author: string, price: number): Promise<number> => {
     const db = await connect();
     await db.run(`INSERT INTO Books (title, author, price) VALUES (?, ?, ?)`, [title, author, price]);
-    return getBookId(title, author)
+    return getBookId(title, author);
 }
 
 export const getBookId = async (title: string, author: string): Promise<number> => {

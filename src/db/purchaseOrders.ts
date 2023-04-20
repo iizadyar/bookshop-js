@@ -3,7 +3,7 @@ import { connect } from "./db";
 
 export const createPurchaseOrder = async (bid: number, cid: number): Promise<number> => {
     const db = await connect();
-    await db.run(`INSERT INTO PurchaseOrders (bookId, customerId, shipped) VALUES (?, ?)`, [bid, cid, 0]);
+    await db.run(`INSERT INTO PurchaseOrders (bookId, customerId, shipped) VALUES (?, ?, ?)`, [bid, cid, 0]);
     return getPOIdByContents(bid, cid);
 }
 
