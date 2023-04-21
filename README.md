@@ -57,7 +57,7 @@ We implemented basic input validation and sanitization on the inputs to ensure t
 (iii)	We included basic sanitization of the inputs as follows: The title and author are trimmed to remove any leading or trailing white spaces. The price is rounded to 2 decimal places and then parsed into a float. All special characters, not alphanumeric or spaces, in the inputs are replaced (using a regular expression pattern) with an empty string (''), effectively removing them from the string.
 
 
-## Invalid errors return meaningful errors
+## Invalid inputs return meaningful errors
 
 The API should be modified such that the invalid input is communicated to the end user so they can attempt to rectify their bad inputs. In other words, if the user enters an invalid input (e.g., an empty string is entered for a book title), the software tool used to test APIs will return the appropriate message. Several examples of such communication as well as sanitization, are included in a Word document (error communication) uploaded to my git repo. If any of the input validation fails, we return a (400) error in the .
 
