@@ -1,8 +1,17 @@
 import { Request, Response } from "express";
 import * as db from "../db";
 
+const sanitizeString = (str: string) => {
+  return str.replace(/[^\w\s]/gi, '');
+}
+
 export const createOrder = async (req: Request, res: Response) => {
-  const { title, author, name, shippingAddress } = req.body;
+  let { title, author, name, shippingAddress } = req.body;
+  title = sanitizeString(title);
+  author = sanitizeString(author);
+  name = sanitizeString(name);
+  shippingAddress = sanitizeString(shippingAddress);
+  
   const bid = await db.getBookId(title, author);
   const cid = await db.getCustomerId(name, shippingAddress);
   await db.createPurchaseOrder(bid, cid);
@@ -11,7 +20,12 @@ export const createOrder = async (req: Request, res: Response) => {
 
 export const getShipmentStatus = async (req: Request, res: Response) => {
   try {
-    const { title, author, name, shippingAddress } = req.body;
+    let { title, author, name, shippingAddress } = req.body;
+    title = sanitizeString(title);
+    author = sanitizeString(author);
+    name = sanitizeString(name);
+    shippingAddress = sanitizeString(shippingAddress);
+    
     const bid = await db.getBookId(title, author);
     const cid = await db.getCustomerId(name, shippingAddress);
     const pid = await db.getPOIdByContents(bid, cid);

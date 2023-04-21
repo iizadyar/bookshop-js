@@ -16,8 +16,8 @@ export const createBook = async (req: Request, res: Response) => {
   }
 
   // Input sanitization
-  const sanitizedTitle = title.trim();
-  const sanitizedAuthor = author.trim();
+  const sanitizedTitle = title.trim().replace(/[^a-zA-Z0-9 ]/g, '');
+  const sanitizedAuthor = author.trim().replace(/[^a-zA-Z0-9 ]/g, '');
   const sanitizedPrice = parseFloat(price.toFixed(2));
 
   await db.createBook(sanitizedTitle, sanitizedAuthor, sanitizedPrice);
@@ -44,4 +44,3 @@ export const getPrice = async (req: Request, res: Response) => {
   const price = await db.getBookPrice(bid);
   res.status(200).json({ price });
 };
-
